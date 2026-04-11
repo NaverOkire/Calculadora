@@ -9,6 +9,7 @@ Projeto simples de calculadora para praticar lógica e manipulação do DOM.
 
 ## Funcionalidades
 - Operações básicas (+, -, *, /)
+- Histórico de cálculos da sessão
 
 ## Objetivo
 Praticar conceitos básicos de JavaScript.
