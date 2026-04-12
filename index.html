@@ -11,14 +11,17 @@
   <div class="container">
     <div class="calculator">
 
-      <!-- Histórico -->
-      <button class="key--history">Histórico</button>
+      <!-- Barra de topo: histórico + tema -->
+      <div class="calculator__topbar">
+        <button class="key--history">Histórico</button>
+        <button id="theme-toggle">☾</button>
+      </div>
       <div class="calculator__history" style="display: none"></div>
 
-      <!-- Display -->
+      <!-- Display (clique para copiar, swipe para limpar no mobile) -->
       <div class="calculator__display">0</div>
 
-      <!-- Abas de modo -->
+      <!-- Abas -->
       <div class="calculator__tabs">
         <button class="tab tab--active" data-action="tab-basico">Básico</button>
         <button class="tab" data-action="tab-financeiro">Financeiro</button>
@@ -48,6 +51,11 @@
         <button data-action="decimal">.</button>
         <button data-action="clear">AC</button>
 
+        <!-- Linha extra: parênteses e porcentagem -->
+        <button class="key--paren" data-action="paren-open">(</button>
+        <button class="key--paren" data-action="paren-close">)</button>
+        <button class="key--paren" data-action="percent">%</button>
+
         <button class="key--equal" data-action="calculate">=</button>
 
       </div>
@@ -55,7 +63,7 @@
       <!-- Painel financeiro -->
       <div class="calculator__financeiro" id="painel-financeiro" style="display: none">
 
-        <!-- Grupo Juros Compostos -->
+        <!-- Juros Compostos -->
         <div class="grupo-financeiro">
           <span class="grupo-financeiro__titulo">Juros Compostos</span>
           <div class="grupo-financeiro__botoes">
@@ -65,7 +73,7 @@
           </div>
         </div>
 
-        <!-- Grupo PMT -->
+        <!-- PMT -->
         <div class="grupo-financeiro">
           <span class="grupo-financeiro__titulo">Parcelas (PMT)</span>
           <div class="grupo-financeiro__botoes">
@@ -75,7 +83,7 @@
           </div>
         </div>
 
-        <!-- Grupo FV -->
+        <!-- FV -->
         <div class="grupo-financeiro">
           <span class="grupo-financeiro__titulo">Valor Futuro (FV)</span>
           <div class="grupo-financeiro__botoes">
@@ -85,11 +93,58 @@
           </div>
         </div>
 
-        <!-- AC disponível no painel financeiro também -->
+        <!-- Taxa Equivalente -->
+        <div class="grupo-financeiro">
+          <span class="grupo-financeiro__titulo">Taxa Equivalente</span>
+          <div class="grupo-financeiro__botoes">
+            <button data-action="set-taxa-origem">Taxa %</button>
+            <button data-action="set-periodo-origem">De (períodos)</button>
+            <button data-action="set-periodo-dest">Para (períodos)</button>
+          </div>
+        </div>
+
+        <!-- Amortização -->
+        <div class="grupo-financeiro">
+          <span class="grupo-financeiro__titulo">Amortização</span>
+          <div class="amort-sistema">
+            <button class="btn-amort-sistema selected" data-sistema="price">Price</button>
+            <button class="btn-amort-sistema" data-sistema="sac">SAC</button>
+          </div>
+          <div class="grupo-financeiro__botoes">
+            <button data-action="set-amort-pv">Empréstimo</button>
+            <button data-action="set-amort-taxa">Taxa %</button>
+            <button data-action="set-amort-n">Parcelas</button>
+          </div>
+        </div>
+
         <button class="key--clear-financeiro" data-action="clear">AC</button>
 
       </div>
 
+    </div>
+  </div>
+
+  <!-- Modal da tabela de amortização -->
+  <div id="amort-modal">
+    <div class="amort-modal__box">
+      <div class="amort-modal__header">
+        <span id="amort-titulo">Tabela</span>
+        <button id="amort-fechar">✕</button>
+      </div>
+      <div class="amort-modal__body">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Parcela</th>
+              <th>Amortiz.</th>
+              <th>Juros</th>
+              <th>Saldo</th>
+            </tr>
+          </thead>
+          <tbody id="amort-tbody"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 
