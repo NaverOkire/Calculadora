@@ -1,4 +1,3 @@
-
 html {
   box-sizing: border-box;
 }
@@ -13,8 +12,6 @@ body {
   margin: 0;
 }
 
-/* Responsive Images */
-
 embed,
 iframe,
 img,
@@ -23,20 +20,9 @@ video {
   max-width: 100%;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-ul,
-ol,
-li,
-p,
-pre,
-blockquote,
-figure,
-hr {
+h1, h2, h3, h4, h5, h6,
+ul, ol, li, p, pre,
+blockquote, figure, hr {
   margin: 0;
   padding-right: 0;
   padding-left: 0;
@@ -50,29 +36,13 @@ a:focus {
   outline: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
-/* Removes all decimals and discs from lists */
-
-ol,
-ul {
+ol, ul {
   list-style: none;
 }
-
-/* 
- * Completely resets form items
- * ----------------------------
- * Super hard reset that removes all borders
- * and radiuses of all form items (including
- * checkboxes and radios)
- */
 
 input,
 textarea,
@@ -88,21 +58,45 @@ button {
   text-align: left;
 }
 
-input:hover,
-input:active,
-input:focus,
-textarea:hover,
-textarea:active,
-textarea:focus,
-button:hover,
-button:active,
-button:focus {
+input:hover, input:active, input:focus,
+textarea:hover, textarea:active, textarea:focus,
+button:hover, button:active, button:focus {
   outline: none;
 }
 
+/* ─── Base ────────────────────────────────────────────────────────────────── */
+
 :root {
   font-family: Helvetica, Arial, sans-serif;
+
+  /* Paleta centralizada — mudar aqui reflete em toda a calculadora */
+  --cor-display-bg:       #222222;
+  --cor-display-texto:    #ffffff;
+  --cor-grade:            #999999;
+  --cor-botao:            #ffffff;
+  --cor-botao-operador:   #eeeeee;
+  --cor-historico-bg:     #333333;
+  --cor-historico-texto:  #aaaaaa;
+
+  --cor-aba-bg:           #2a2a2a;
+  --cor-aba-texto:        #aaaaaa;
+  --cor-aba-ativa-texto:  #ffffff;
+  --cor-aba-ativa-borda:  #ff7033;
+
+  --cor-grupo-bg:         #f5f5f5;
+  --cor-grupo-titulo:     #888888;
+  --cor-grupo-borda:      #e0e0e0;
+
+  --cor-botao-fin:        #ffffff;
+  --cor-botao-fin-hover:  #f0f0f0;
 }
+
+/*
+  Por que variáveis CSS aqui?
+  Antes as cores estavam espalhadas pelo arquivo.
+  Agora mudar --cor-aba-ativa-borda de laranja para azul,
+  por exemplo, reflete em todos os lugares que a usam.
+*/
 
 html {
   font-size: 175%;
@@ -118,6 +112,8 @@ body {
   justify-content: center;
 }
 
+/* ─── Container ───────────────────────────────────────────────────────────── */
+
 .container {
   max-width: 20em;
 }
@@ -125,6 +121,8 @@ body {
 .container > p {
   text-align: center;
 }
+
+/* ─── Calculadora ─────────────────────────────────────────────────────────── */
 
 .calculator {
   border-radius: 12px;
@@ -136,23 +134,115 @@ body {
   overflow: hidden;
 }
 
-.calculator__display {
-  background-color: #222222;
-  color: #fff;
-  font-size: 1.714285714em;
+/* ─── Histórico ───────────────────────────────────────────────────────────── */
+
+.key--history {
+  background-color: var(--cor-historico-bg);
+  color: var(--cor-display-texto);
+  cursor: pointer;
+  font-size: 0.6em;
+  padding: 0.3em 0.75em;
+  text-align: right;
+  width: 100%;
+}
+
+.calculator__history {
+  background-color: var(--cor-historico-bg);
+  max-height: 150px;
+  overflow-y: auto;
   padding: 0.5em 0.75em;
+}
+
+.calculator__history p {
+  color: var(--cor-historico-texto);
+  cursor: pointer;
+  font-size: 0.75em;
+  padding: 0.25em 0;
   text-align: right;
 }
 
+.calculator__history p:hover {
+  color: var(--cor-display-texto);
+}
+
+/* ─── Display ─────────────────────────────────────────────────────────────── */
+
+.calculator__display {
+  background-color: var(--cor-display-bg);
+  color: var(--cor-display-texto);
+  font-size: 1.714285714em;
+  min-height: 1.8em;        /* evita pulo de altura quando o texto muda */
+  overflow: hidden;
+  padding: 0.5em 0.75em;
+  text-align: right;
+
+  /*
+    Por que font-size menor e word-break aqui?
+    Prompts como "Taxa por período % →" têm ~20 caracteres.
+    Sem ajuste, o texto transborda o display para fora da calculadora.
+    Reduzimos para 1.2em quando o texto é longo — feito via JS mais à frente.
+    word-break garante que, se mesmo assim não couber, ele quebra a linha
+    em vez de vazar.
+  */
+  word-break: break-word;
+}
+
+/*
+  Classe adicionada via JS quando o display contém um prompt longo.
+  Mantém o display legível sem encolher os números normais.
+*/
+.calculator__display--prompt {
+  font-size: 1em;
+  padding-top: 0.65em;
+}
+
+/* ─── Abas ────────────────────────────────────────────────────────────────── */
+
+.calculator__tabs {
+  background-color: var(--cor-aba-bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* duas colunas iguais, uma por aba */
+}
+
+.tab {
+  color: var(--cor-aba-texto);
+  cursor: pointer;
+  font-size: 0.55em;
+  letter-spacing: 0.05em;
+  padding: 0.5em 0;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color 0.2s;
+
+  /*
+    border-bottom cria o indicador de aba ativa.
+    Usamos transparent por padrão para ocupar o espaço
+    sem mostrar a borda — evita o "pulo" de layout
+    quando a classe ativa é adicionada.
+  */
+  border-bottom: 2px solid transparent;
+}
+
+.tab:hover {
+  color: var(--cor-aba-ativa-texto);
+}
+
+.tab--active {
+  border-bottom-color: var(--cor-aba-ativa-borda);  /* laranja, igual ao = */
+  color: var(--cor-aba-ativa-texto);
+}
+
+/* ─── Painel básico ───────────────────────────────────────────────────────── */
+
 .calculator__keys {
-  background-color: #999;
+  background-color: var(--cor-grade);
   display: grid;
   grid-gap: 1px;
   grid-template-columns: repeat(4, 1fr);
 }
 
 .calculator__keys > * {
-  background-color: #fff;
+  background-color: var(--cor-botao);
   padding: 0.5em 1.25em;
   position: relative;
   text-align: center;
@@ -173,7 +263,7 @@ body {
 }
 
 .key--operator {
-  background-color: #eee;
+  background-color: var(--cor-botao-operador);
 }
 
 .key--equal {
@@ -181,29 +271,82 @@ body {
   grid-column: -2;
   grid-row: 2 / span 4;
 }
-.key--history {
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-  font-size: 0.6em;
-  padding: 0.3em 0.75em;
-  text-align: right;
-  width: 100%;
 
-}.calculator__history {
-  background-color: #333;
-  max-height: 150px;
-  overflow-y: auto;
-  padding: 0.5em 0.75em;
-  
-}.calculator__history p {
-  color: #aaa;
-  cursor: pointer;
-  font-size: 0.75em;
-  padding: 0.25em 0;
-  text-align: right;
+/* ─── Painel financeiro ───────────────────────────────────────────────────── */
+
+.calculator__financeiro {
+  background-color: var(--cor-grupo-bg);
+  padding: 0.4em;
+
+  /*
+    display: flex + flex-direction: column empilha os grupos verticalmente.
+    Cada grupo (JC, PMT, FV) ocupa sua própria linha com título e botões.
+    Usamos flex aqui em vez de grid porque os grupos têm altura variável
+    — flex se adapta melhor do que grid com linhas fixas.
+  */
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
 }
 
-.calculator__history p:hover {
-  color: #fff;
+/* ─── Grupos financeiros ──────────────────────────────────────────────────── */
+
+.grupo-financeiro {
+  background-color: var(--cor-botao);
+  border: 1px solid var(--cor-grupo-borda);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.grupo-financeiro__titulo {
+  color: var(--cor-grupo-titulo);
+  display: block;        /* span é inline por padrão — block ocupa a linha toda */
+  font-size: 0.45em;
+  letter-spacing: 0.06em;
+  padding: 0.4em 0.75em 0.2em;
+  text-transform: uppercase;
+}
+
+.grupo-financeiro__botoes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 botões lado a lado sempre */
+  gap: 1px;
+  background-color: var(--cor-grupo-borda);  /* a cor da grade vira a cor do gap */
+}
+
+.grupo-financeiro__botoes button {
+  background-color: var(--cor-botao-fin);
+  color: #333;
+  cursor: pointer;
+  font-size: 0.5em;
+  padding: 0.6em 0.25em;
+  text-align: center;
+  transition: background-color 0.15s;
+}
+
+.grupo-financeiro__botoes button:hover {
+  background-color: var(--cor-botao-fin-hover);
+}
+
+.grupo-financeiro__botoes button:active {
+  background-color: #e0e0e0;
+}
+
+/* ─── AC no painel financeiro ─────────────────────────────────────────────── */
+
+.key--clear-financeiro {
+  background-color: #eee;
+  border-radius: 6px;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.55em;
+  margin-top: 0.2em;
+  padding: 0.5em;
+  text-align: center;
+  width: 100%;
+  transition: background-color 0.15s;
+}
+
+.key--clear-financeiro:hover {
+  background-color: #ddd;
 }

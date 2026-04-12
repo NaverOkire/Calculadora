@@ -2,40 +2,97 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Financeira</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
     <div class="calculator">
-         <button class="key--history">Histórico</button>
-         <div class="calculator__history" style="display: none">
-         </div>
+
+      <!-- Histórico -->
+      <button class="key--history">Histórico</button>
+      <div class="calculator__history" style="display: none"></div>
+
+      <!-- Display -->
       <div class="calculator__display">0</div>
-      <div class="calculator__keys">
-        <button class="key--operator" data-section="add">+</button>
-        <button class="key--operator" data-section="subtract">-</button>
-        <button class="key--operator" data-section="multiply">&times;</button>
-        <button class="key--operator" data-section="divide">÷</button>
+
+      <!-- Abas de modo -->
+      <div class="calculator__tabs">
+        <button class="tab tab--active" data-action="tab-basico">Básico</button>
+        <button class="tab" data-action="tab-financeiro">Financeiro</button>
+      </div>
+
+      <!-- Painel básico -->
+      <div class="calculator__keys" id="painel-basico">
+
+        <button class="key--operator" data-action="add">+</button>
+        <button class="key--operator" data-action="subtract">-</button>
+        <button class="key--operator" data-action="multiply">&times;</button>
+        <button class="key--operator" data-action="divide">÷</button>
+
         <button>7</button>
         <button>8</button>
         <button>9</button>
+
         <button>4</button>
         <button>5</button>
         <button>6</button>
+
         <button>1</button>
         <button>2</button>
         <button>3</button>
+
         <button>0</button>
         <button data-action="decimal">.</button>
-        <button data-section="clear">AC</button>
+        <button data-action="clear">AC</button>
+
         <button class="key--equal" data-action="calculate">=</button>
+
       </div>
+
+      <!-- Painel financeiro -->
+      <div class="calculator__financeiro" id="painel-financeiro" style="display: none">
+
+        <!-- Grupo Juros Compostos -->
+        <div class="grupo-financeiro">
+          <span class="grupo-financeiro__titulo">Juros Compostos</span>
+          <div class="grupo-financeiro__botoes">
+            <button data-action="set-capital">Capital</button>
+            <button data-action="set-taxa">Taxa %</button>
+            <button data-action="set-periodos">Períodos</button>
+          </div>
+        </div>
+
+        <!-- Grupo PMT -->
+        <div class="grupo-financeiro">
+          <span class="grupo-financeiro__titulo">Parcelas (PMT)</span>
+          <div class="grupo-financeiro__botoes">
+            <button data-action="set-pmt-pv">Empréstimo</button>
+            <button data-action="set-pmt-taxa">Taxa PMT</button>
+            <button data-action="set-pmt-periodos">Parcelas</button>
+          </div>
+        </div>
+
+        <!-- Grupo FV -->
+        <div class="grupo-financeiro">
+          <span class="grupo-financeiro__titulo">Valor Futuro (FV)</span>
+          <div class="grupo-financeiro__botoes">
+            <button data-action="set-fv-aporte">Aporte</button>
+            <button data-action="set-fv-taxa">Taxa FV</button>
+            <button data-action="set-fv-periodos">Períodos FV</button>
+          </div>
+        </div>
+
+        <!-- AC disponível no painel financeiro também -->
+        <button class="key--clear-financeiro" data-action="clear">AC</button>
+
+      </div>
+
     </div>
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
