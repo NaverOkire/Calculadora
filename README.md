@@ -73,12 +73,6 @@ Próximos passos:
 
 ---
 
-## 📷 Preview
-
-*(adicione prints ou GIFs aqui futuramente)*
-
----
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT.
