@@ -1,0 +1,180 @@
+/* ─── Tela de autenticação ───────────────────────────────────── */
+
+#tela-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(236deg, var(--cor-body-bg), var(--cor-body-bg2));
+  padding: 1rem;
+}
+
+.auth-card {
+  background: var(--cor-display-bg);
+  border-radius: 16px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.35);
+  padding: 2rem 1.75rem;
+  width: 100%;
+  max-width: 360px;
+  animation: authEntrar 0.35s ease;
+}
+
+@keyframes authEntrar {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.auth-logo__icon {
+  font-size: 1.6rem;
+  color: #ff7033;
+  line-height: 1;
+}
+
+.auth-logo__text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cor-display-texto);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Abas */
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--cor-aba-bg);
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 1.5rem;
+}
+
+.auth-tab {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--cor-aba-texto);
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-family: inherit;
+  letter-spacing: 0.05em;
+  padding: 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.auth-tab--active {
+  background: #ff7033;
+  color: #fff;
+}
+
+/* Campos */
+.auth-field {
+  margin-bottom: 1rem;
+}
+
+.auth-field label {
+  display: block;
+  color: var(--cor-historico-texto);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+.auth-dica {
+  color: var(--cor-aba-texto);
+  font-size: 0.85em;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.auth-field input {
+  background: var(--cor-aba-bg);
+  border: 1px solid var(--cor-grupo-borda);
+  border-radius: 8px;
+  color: var(--cor-display-texto);
+  display: block;
+  font-family: inherit;
+  font-size: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  width: 100%;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.auth-field input:focus {
+  border-color: #ff7033;
+  outline: none;
+}
+
+.auth-field input::placeholder {
+  color: var(--cor-aba-texto);
+}
+
+/* Erro */
+.auth-erro {
+  color: #ff5252;
+  font-size: 0.6rem;
+  min-height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Botão */
+.auth-btn {
+  background: linear-gradient(to bottom, #fe886a, #ff7033);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.75rem;
+  text-transform: uppercase;
+  width: 100%;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.auth-btn:hover   { opacity: 0.9; }
+.auth-btn:active  { transform: scale(0.98); }
+.auth-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ─── Topbar com usuário e logout ────────────────────────────── */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.topbar-usuario {
+  color: var(--cor-historico-texto);
+  font-size: 0.45em;
+  max-width: 5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar-logout {
+  background: transparent;
+  color: var(--cor-historico-texto);
+  cursor: pointer;
+  font-size: 0.6em;
+  padding: 0.25em;
+  border-radius: 4px;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.topbar-logout:hover { color: #ff5252; }
