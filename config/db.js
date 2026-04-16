@@ -9,16 +9,20 @@ const mysql = require('mysql2/promise')
 require('dotenv').config()
 
 const pool = mysql.createPool({
-  host:               process.env.DB_HOST     || 'localhost',
-  port:               process.env.DB_PORT     || 3306,
-  user:               process.env.DB_USER     || 'root',
-  password:           process.env.DB_PASSWORD || '',
-  database:           process.env.DB_NAME     || 'financial_manager',
+  host:               process.env.DB_HOST || 'localhost',
+  port:               Number(process.env.DB_PORT || 3306),
+  user:               process.env.DB_USER || 'root',
+  password:           process.env.DB_PASSWORD,
+  database:           process.env.DB_NAME || 'financial_manager',
   waitForConnections: true,   // aguarda conexão disponível ao invés de lançar erro
   connectionLimit:    10,     // máximo de conexões simultâneas no pool
   queueLimit:         0,      // 0 = fila ilimitada de requests aguardando conexão
   charset:            'utf8mb4',
 })
+
+if (process.env.NODE_ENV === 'production' && !process.env.DB_PASSWORD) {
+  throw new Error('DB_PASSWORD não configurado.')
+}
 
 // Testa a conexão ao inicializar — falha rápido se o banco estiver inacessível
 ;(async () => {

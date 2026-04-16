@@ -1,17 +1,17 @@
-// routes/auth.js
-// ─────────────────────────────────────────────────────────────
-// Define as rotas públicas de autenticação.
-// express-validator valida e sanitiza os dados ANTES de
-// chegar no controller — o controller não precisa se preocupar.
-// ─────────────────────────────────────────────────────────────
+﻿const express = require('express')
+const { body } = require('express-validator')
 
-const express = require('express')
-const { body }  = require('express-validator')
-const { register, login } = require('../controllers/authController')
+const { register, login, me, logout } = require('../controllers/authController')
+const auth = require('../middleware/auth')
+const asyncHandler = require('../middleware/asyncHandler')
+const createRateLimiter = require('../middleware/rateLimit')
 
 const router = express.Router()
-
-// ─── Regras de validação reutilizáveis ────────────────────────
+const authLimiter = createRateLimiter({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: 'Muitas tentativas. Tente novamente em alguns minutos.',
+})
 
 const registroRules = [
   body('name')
@@ -22,10 +22,12 @@ const registroRules = [
   body('email')
     .trim()
     .isEmail().withMessage('E-mail inválido.')
-    .normalizeEmail(),             // converte para minúsculas, remove aliases
+    .normalizeEmail(),
 
   body('password')
-    .isLength({ min: 6 }).withMessage('Senha deve ter ao menos 6 caracteres.'),
+    .isLength({ min: 10 }).withMessage('Senha deve ter ao menos 10 caracteres.')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
+    .withMessage('Senha deve conter letra minúscula, maiúscula e número.'),
 ]
 
 const loginRules = [
@@ -33,9 +35,9 @@ const loginRules = [
   body('password').notEmpty().withMessage('Senha é obrigatória.'),
 ]
 
-// ─── Rotas ────────────────────────────────────────────────────
+router.post('/register', authLimiter, registroRules, asyncHandler(register))
+router.post('/login', authLimiter, loginRules, asyncHandler(login))
+router.get('/me', auth, me)
+router.post('/logout', logout)
 
-router.post('/register', registroRules, register)
-router.post('/login',    loginRules,    login)
-
-module.exports = router;
+module.exports = router

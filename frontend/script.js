@@ -24,10 +24,19 @@ let historyList     = []
 const telaAuth = document.getElementById('tela-auth')
 const telaApp  = document.getElementById('tela-app')
 
-// Verifica se já há token salvo ao carregar a página
-if (FinanceAPI.isLoggedIn()) {
-  mostrarApp()
-} else {
+inicializarSessao()
+
+async function inicializarSessao() {
+  try {
+    await FinanceAPI.getSession()
+    mostrarApp()
+  } catch (err) {
+    await FinanceAPI.logout()
+    mostrarTelaAuth()
+  }
+}
+
+function mostrarTelaAuth() {
   telaAuth.style.display = 'flex'
   telaApp.style.display  = 'none'
 }
@@ -95,7 +104,7 @@ document.getElementById('btn-registro').addEventListener('click', async () => {
 
   erro.textContent = ''
   if (!nome || !email || !senha) { erro.textContent = 'Preencha todos os campos.'; return }
-  if (senha.length < 6)          { erro.textContent = 'Senha deve ter ao menos 6 caracteres.'; return }
+  if (senha.length < 10)         { erro.textContent = 'Senha deve ter ao menos 10 caracteres.'; return }
 
   btn.disabled = true
   btn.textContent = 'Criando conta...'
@@ -111,14 +120,13 @@ document.getElementById('btn-registro').addEventListener('click', async () => {
 })
 
 // ─── Logout ───────────────────────────────────────────────────
-document.getElementById('btn-logout').addEventListener('click', () => {
-  FinanceAPI.logout()
+document.getElementById('btn-logout').addEventListener('click', async () => {
+  await FinanceAPI.logout()
   // Limpa histórico visual
   historyPanel.innerHTML = ''
   historyList = []
   handleClear()
-  telaApp.style.display  = 'none'
-  telaAuth.style.display = 'flex'
+  mostrarTelaAuth()
   // Limpa campos de login
   document.getElementById('login-email').value = ''
   document.getElementById('login-senha').value = ''
@@ -130,7 +138,7 @@ document.getElementById('btn-logout').addEventListener('click', () => {
 
 // Carrega as últimas transações do banco e exibe no painel de histórico
 async function carregarHistoricoBanco() {
-  if (!FinanceAPI.isLoggedIn()) return
+  if (!FinanceAPI.hasSession()) return
   try {
     const { transactions } = await FinanceAPI.getTransactions()
     historyPanel.innerHTML = ''
@@ -146,7 +154,7 @@ async function carregarHistoricoBanco() {
 
 // Salva um cálculo financeiro como transação no banco
 async function salvarNoBanco(descricao, valor) {
-  if (!FinanceAPI.isLoggedIn()) return
+  if (!FinanceAPI.hasSession()) return
   try {
     const amount = parseFloat(String(valor).replace(/[^\d\.\-]/g, ''))
     if (isNaN(amount) || amount <= 0) return
@@ -382,13 +390,13 @@ function handlePercent() {
     const num     = parseFloat(match[2])
     const baseExpr = base.slice(0, -1)
     let baseVal = 0
-    try { baseVal = Function('"use strict"; return (' + baseExpr + ')')() } catch(e) {}
+    try { baseVal = avaliarExpressaoNumerica(baseExpr) } catch(e) {}
     const op = base.slice(-1)
     const pctValue = (op === '+' || op === '-') ? baseVal * (num / 100) : num / 100
     expression = baseExpr + op + pctValue
   } else {
     try {
-      const val = Function('"use strict"; return (' + expression + ')')()
+      const val = avaliarExpressaoNumerica(expression)
       expression = String(parseFloat((val / 100).toFixed(10)))
     } catch(e) { return }
   }
@@ -414,10 +422,152 @@ function handleBackspace() {
 function avaliarExpressao(expr) {
   if (!/^[\d\.\+\-\*\/\(\)]+$/.test(expr)) return 'Erro'
   try {
-    const r = Function('"use strict"; return (' + expr + ')')()
+    const r = avaliarExpressaoNumerica(expr)
     if (!isFinite(r)) return 'Erro: divisão por zero'
     return parseFloat(r.toFixed(10))
   } catch(e) { return 'Erro' }
+}
+
+function avaliarExpressaoNumerica(expr) {
+  const sanitized = expr.replace(/\s+/g, '')
+  const tokens = []
+  let index = 0
+
+  while (index < sanitized.length) {
+    const char = sanitized[index]
+
+    if (/\d|\./.test(char)) {
+      let number = char
+      index += 1
+      while (index < sanitized.length && /[\d.]/.test(sanitized[index])) {
+        number += sanitized[index]
+        index += 1
+      }
+
+      if ((number.match(/\./g) || []).length > 1 || number === '.') {
+        throw new Error('Invalid number')
+      }
+
+      tokens.push(number)
+      continue
+    }
+
+    if ('+-*/()'.includes(char)) {
+      const previous = tokens[tokens.length - 1]
+      const unaryContext = !previous || ['+', '-', '*', '/', '('].includes(previous)
+      if (char === '-' && unaryContext) tokens.push('u-')
+      else if (char === '+' && unaryContext) tokens.push('u+')
+      else tokens.push(char)
+      index += 1
+      continue
+    }
+
+    throw new Error('Invalid character')
+  }
+
+  const output = []
+  const operators = []
+  const precedence = { 'u+': 3, 'u-': 3, '*': 2, '/': 2, '+': 1, '-': 1 }
+  const rightAssociative = new Set(['u+', 'u-'])
+
+  tokens.forEach(token => {
+    if (!Number.isNaN(Number(token))) {
+      output.push(token)
+      return
+    }
+
+    if (token in precedence) {
+      while (operators.length > 0) {
+        const top = operators[operators.length - 1]
+        if (
+          top in precedence &&
+          (
+            precedence[top] > precedence[token] ||
+            (precedence[top] === precedence[token] && !rightAssociative.has(token))
+          )
+        ) {
+          output.push(operators.pop())
+          continue
+        }
+        break
+      }
+
+      operators.push(token)
+      return
+    }
+
+    if (token === '(') {
+      operators.push(token)
+      return
+    }
+
+    if (token === ')') {
+      while (operators.length > 0 && operators[operators.length - 1] !== '(') {
+        output.push(operators.pop())
+      }
+
+      if (operators.pop() !== '(') {
+        throw new Error('Mismatched parentheses')
+      }
+    }
+  })
+
+  while (operators.length > 0) {
+    const top = operators.pop()
+    if (top === '(' || top === ')') {
+      throw new Error('Mismatched parentheses')
+    }
+    output.push(top)
+  }
+
+  const stack = []
+  output.forEach(token => {
+    if (!Number.isNaN(Number(token))) {
+      stack.push(Number(token))
+      return
+    }
+
+    if (token === 'u+' || token === 'u-') {
+      const value = stack.pop()
+      if (typeof value !== 'number') {
+        throw new Error('Invalid expression')
+      }
+      stack.push(token === 'u-' ? -value : value)
+      return
+    }
+
+    const right = stack.pop()
+    const left = stack.pop()
+    if (typeof left !== 'number' || typeof right !== 'number') {
+      throw new Error('Invalid expression')
+    }
+
+    switch (token) {
+      case '+':
+        stack.push(left + right)
+        break
+      case '-':
+        stack.push(left - right)
+        break
+      case '*':
+        stack.push(left * right)
+        break
+      case '/':
+        if (right === 0) {
+          throw new Error('Division by zero')
+        }
+        stack.push(left / right)
+        break
+      default:
+        throw new Error('Invalid operator')
+    }
+  })
+
+  if (stack.length !== 1 || !Number.isFinite(stack[0])) {
+    throw new Error('Invalid expression')
+  }
+
+  return stack[0]
 }
 
 function handleCalculate() {
@@ -662,9 +812,16 @@ function exibirTabelaAmortizacao(tabela, sistema) {
   const tbody  = document.getElementById('amort-tbody')
   const titulo = document.getElementById('amort-titulo')
   titulo.textContent = 'Tabela ' + (sistema === 'price' ? 'Price' : 'SAC')
-  tbody.innerHTML = tabela.map(r =>
-    '<tr><td>' + r.k + '</td><td>R$ ' + r.pmt + '</td><td>R$ ' + r.amort + '</td><td>R$ ' + r.juros + '</td><td>R$ ' + r.saldo + '</td></tr>'
-  ).join('')
+  tbody.replaceChildren()
+  tabela.forEach(r => {
+    const row = document.createElement('tr')
+    ;[r.k, `R$ ${r.pmt}`, `R$ ${r.amort}`, `R$ ${r.juros}`, `R$ ${r.saldo}`].forEach(value => {
+      const cell = document.createElement('td')
+      cell.textContent = String(value)
+      row.appendChild(cell)
+    })
+    tbody.appendChild(row)
+  })
   modal.style.display = 'flex'
 }
 

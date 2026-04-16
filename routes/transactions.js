@@ -1,21 +1,13 @@
-// routes/transactions.js
-// ─────────────────────────────────────────────────────────────
-// Rotas PROTEGIDAS de transações.
-// O middleware auth garante que apenas usuários autenticados
-// acessem essas rotas.
-// ─────────────────────────────────────────────────────────────
+﻿const express = require('express')
+const { body, param, query } = require('express-validator')
 
-const express = require('express')
-const { body }  = require('express-validator')
-const auth      = require('../middleware/auth')
+const auth = require('../middleware/auth')
+const asyncHandler = require('../middleware/asyncHandler')
 const { list, create, update, remove } = require('../controllers/transactionsController')
 
 const router = express.Router()
 
-// Aplica autenticação em todas as rotas deste arquivo de uma vez
 router.use(auth)
-
-// ─── Regras de validação compartilhadas ───────────────────────
 
 const transactionRules = [
   body('type')
@@ -25,7 +17,8 @@ const transactionRules = [
     .isFloat({ gt: 0 }).withMessage('Valor deve ser um número positivo.'),
 
   body('date')
-    .isDate().withMessage('Data inválida (use o formato YYYY-MM-DD).'),
+    .isISO8601({ strict: true, strictSeparator: true })
+    .withMessage('Data inválida (use o formato YYYY-MM-DD).'),
 
   body('description')
     .optional()
@@ -33,11 +26,25 @@ const transactionRules = [
     .isLength({ max: 500 }).withMessage('Descrição deve ter no máximo 500 caracteres.'),
 ]
 
-// ─── Rotas ────────────────────────────────────────────────────
+const transactionIdRules = [
+  param('id').isInt({ gt: 0 }).withMessage('ID inválido.')
+]
 
-router.get('/',     list)
-router.post('/',    transactionRules, create)
-router.put('/:id',  transactionRules, update)
-router.delete('/:id', remove)
+const transactionQueryRules = [
+  query('type')
+    .optional()
+    .isIn(['income', 'expense']).withMessage('Tipo inválido.'),
+  query('from')
+    .optional()
+    .isISO8601({ strict: true, strictSeparator: true }).withMessage('Filtro "from" inválido.'),
+  query('to')
+    .optional()
+    .isISO8601({ strict: true, strictSeparator: true }).withMessage('Filtro "to" inválido.'),
+]
+
+router.get('/', transactionQueryRules, asyncHandler(list))
+router.post('/', transactionRules, asyncHandler(create))
+router.put('/:id', transactionIdRules, transactionRules, asyncHandler(update))
+router.delete('/:id', transactionIdRules, asyncHandler(remove))
 
 module.exports = router

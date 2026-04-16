@@ -30,11 +30,12 @@ CREATE TABLE IF NOT EXISTS transactions (
   user_id     INT                      NOT NULL,
   type        ENUM('income','expense') NOT NULL,
   amount      DECIMAL(15,2)            NOT NULL,
-  description TEXT,
+  description VARCHAR(500),
   date        DATE                     NOT NULL,
   created_at  TIMESTAMP                NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   INDEX idx_user_date (user_id, date),
+  CONSTRAINT chk_transactions_amount CHECK (amount > 0),
   CONSTRAINT fk_transactions_user
     FOREIGN KEY (user_id) REFERENCES users(id)
     ON DELETE CASCADE

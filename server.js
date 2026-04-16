@@ -4,23 +4,59 @@
 // Configura middlewares globais, registra as rotas e inicia.
 // ─────────────────────────────────────────────────────────────
 
-require('dotenv').config()              // carrega variáveis do .env antes de tudo
+require('dotenv').config()
 
 const express = require('express')
-const cors    = require('cors')
-const path    = require('path')
+const cors = require('cors')
+const path = require('path')
 
-const authRoutes         = require('./routes/auth')
+const authRoutes = require('./routes/auth')
 const transactionsRoutes = require('./routes/transactions')
 
-const app  = express()
-const PORT = process.env.PORT || 3000
+const app = express()
+const PORT = Number(process.env.PORT || 3000)
+const ownOrigin = process.env.APP_ORIGIN || `http://localhost:${PORT}`
+const allowedOrigins = new Set(
+  (process.env.FRONTEND_URL || ownOrigin)
+    .split(',')
+    .map(origin => origin.trim())
+    .filter(Boolean)
+)
+
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET não configurado.')
+}
+
+if (process.env.NODE_ENV === 'production' && !process.env.FRONTEND_URL) {
+  throw new Error('FRONTEND_URL deve ser definido em produção.')
+}
 
 // ─── Middlewares globais ──────────────────────────────────────
 
+app.disable('x-powered-by')
+
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-Frame-Options', 'DENY')
+  res.setHeader('Referrer-Policy', 'same-origin')
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin')
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+  )
+  next()
+})
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) {
+      return callback(null, true)
+    }
+
+    return callback(new Error('Origem não permitida por CORS.'))
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }))
 
@@ -48,10 +84,14 @@ app.use((req, res) => {
 // ─── Erros globais ────────────────────────────────────────────
 app.use((err, req, res, next) => {  // eslint-disable-line no-unused-vars
   console.error('[Erro global]', err)
-  res.status(500).json({ error: 'Erro interno do servidor.' })
+  if (err.message === 'Origem não permitida por CORS.') {
+    return res.status(403).json({ error: err.message })
+  }
+
+  return res.status(500).json({ error: 'Erro interno do servidor.' })
 })
 
 // ─── Inicialização ────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`)
+  console.log(`Servidor rodando em ${ownOrigin}`)
 })
