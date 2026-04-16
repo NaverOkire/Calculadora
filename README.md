@@ -1,31 +1,31 @@
 # 💻 Calculadora & Gerenciador Financeiro
 
-Aplicação web desenvolvida com foco em evolução prática de lógica de programação, manipulação do DOM e construção progressiva de sistemas mais completos.
+Aplicação web full-stack desenvolvida com foco em evolução prática de lógica de programação, construção de sistemas completos e integração entre frontend, backend e banco de dados.
 
-Inicialmente criada como uma calculadora simples, o projeto evoluiu para um **gerenciador financeiro**, incorporando funcionalidades mais avançadas e foco em experiência do usuário.
+O projeto iniciou como uma calculadora simples e evoluiu para um gerenciador financeiro completo com autenticação de usuários e persistência de dados.
 
 ---
 
-## 🚀 Funcionalidades
+# 🚀 Funcionalidades
 
-### 🔢 Calculadora
+## 🔢 Calculadora
 
-* Operações básicas: `+`, `-`, `×`, `÷`
-* Suporte a **parênteses** e múltiplas operações
-* Tratamento de **porcentagem (%)**
+* Operações básicas: +, -, ×, ÷
+* Suporte a parênteses e múltiplas operações
+* Tratamento de porcentagem (%)
 * Histórico interativo de cálculos
-* Suporte completo ao **teclado**
-* Botão de apagar (backspace)
-* Engine baseada em expressão (melhor organização da lógica)
+* Suporte ao teclado
+* Backspace
+* Engine baseada em expressões
 
 ---
 
-### 💰 Modo Financeiro
+## 💰 Modo Financeiro
 
-* Juros Compostos
-* PMT (Pagamento periódico)
-* FV (Valor Futuro)
-* Taxa Equivalente
+* Juros compostos
+* PMT (pagamento periódico)
+* FV (valor futuro)
+* Taxa equivalente
 * Sistemas de amortização:
 
   * Price
@@ -34,45 +34,90 @@ Inicialmente criada como uma calculadora simples, o projeto evoluiu para um **ge
 
 ---
 
-### 🎨 Interface & Experiência
+## 🔐 Autenticação & Usuários
+
+* Registro de usuários
+* Login com autenticação via JWT
+* Senhas protegidas com hash (bcrypt)
+* Rotas protegidas (middleware)
+
+---
+
+## 📊 Transações Financeiras
+
+* CRUD completo (criar, listar, atualizar e deletar)
+* Dados vinculados ao usuário autenticado
+* Persistência no banco de dados
+
+---
+
+## 🎨 Interface & Experiência
 
 * Tema claro/escuro com persistência
 * Layout responsivo
-* Ajuste automático de fonte no display
+* Ajuste automático de fonte
 * Copiar resultado com clique
-* Limpar com gesto (mobile)
-* Animações e feedback visual
+* Interações otimizadas para mobile
+* Feedback visual e animações
 
 ---
 
-## 🛠️ Tecnologias
+# 🛠️ Tecnologias
+
+## Frontend
 
 * HTML5
-* CSS3 (com variáveis para temas)
-* JavaScript (manipulação de DOM e lógica)
+* CSS3
+* JavaScript
+
+## Backend
+
+* Node.js
+* Express
+
+## Banco de Dados
+
+* MySQL
+
+## Segurança
+
+* JWT (autenticação)
+* bcrypt (hash de senha)
 
 ---
 
-## 🎯 Objetivo
+# ⚙️ Arquitetura
 
-* Desenvolver lógica de programação de forma prática
-* Evoluir de um projeto simples para um sistema mais completo
-* Explorar boas práticas de organização e refatoração de código
-* Preparar base para integração futura com backend e banco de dados
+* Backend em Node.js com API REST
+* Separação em controllers, routes e middleware
+* Banco relacional com schema definido via SQL
+* Frontend consumindo API via requisições HTTP
 
 ---
 
-## 📌 Status
+# 🎯 Objetivo
+
+* Evoluir de um projeto simples para uma aplicação full-stack
+* Consolidar fundamentos de backend e banco de dados
+* Aplicar boas práticas de estrutura e organização
+* Desenvolver um sistema funcional e escalável
+
+---
+
+# 📌 Status
 
 🚧 Em desenvolvimento
-Próximos passos:
 
-* Integração com banco de dados (SQL)
-* Implementação de backend
-* Sistema de gerenciamento de contas
+### Próximos passos:
+
+* Melhorar validações e tratamento de erros
+* Implementar refresh token
+* Deploy da aplicação
+* Melhorias de UI/UX
+* Logs e monitoramento
 
 ---
 
-## 📄 Licença
+# 📄 Licença
 
 Este projeto está sob a licença MIT.
