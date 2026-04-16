@@ -1,21 +1,37 @@
-[v0.2.0] – Full Stack Integration
-Added
-MySQL integration with connection pool (config/db.js) and initial schema (data.sql)
-User authentication system with JWT and password hashing via bcrypt
-Auth routes and middleware for protected endpoints
-Transactions API with full CRUD operations scoped per user
-Server bootstrap with Express (server.js)
-Frontend application with authentication flow and API integration
-Persistence of calculation history to backend
-Project configuration (package.json, dependencies)
-Features
-User registration and login
-Secure authentication using tokens
-Isolated user data (each user sees only their transactions)
-Backend ↔ frontend communication via API
-Financial data storage in database
-Tech Stack
-Node.js + Express
-MySQL
-JWT + bcrypt
-Vanilla JS (frontend)
+v0.3.0] – Reforço de Segurança e Sessões
+Segurança & Autenticação
+Sessões Seguras: Migração do armazenamento de tokens (LocalStorage) para Cookies HttpOnly, protegendo a aplicação contra ataques XSS.
+
+Proteção de API: Implementação de rateLimit para prevenir ataques de força bruta e sobrecarga do servidor.
+
+Hardening do Servidor: Configuração rigorosa de CORS e headers de segurança. Adição de verificações críticas de variáveis de ambiente e tratamento de erros assíncronos com asyncHandler.
+
+Backend & Banco de Dados
+Refatoração de Transações: Melhoria no processamento de valores monetários e validação rigorosa de propriedade (garantindo que um usuário só acesse seus próprios dados).
+
+Validação Estrita: Implementação de regras de entrada mais fortes (senhas complexas, formatos de data ISO e validação de parâmetros de rota).
+
+Integridade de Dados: Atualização do schema SQL com restrições (CHECK constraints) para garantir dados financeiros consistentes.
+
+Frontend
+Remoção de Código Inseguro: Substituição do uso de eval() por um parser de expressões numéricas exclusivo, eliminando vulnerabilidades de execução de script.
+
+Gestão de Estado: Nova lógica de inicialização de sessão (getSession) e fluxo de logout integrado ao backend.
+
+[v0.2.0] – Integração Full Stack
+Persistência de Dados
+Integração MySQL: Configuração de pool de conexões e criação do schema inicial do banco de dados.
+
+Histórico: Persistência de cálculos e histórico financeiro diretamente no banco de dados.
+
+Autenticação
+Sistema de Usuários: Criação de rotas para registro e login.
+
+Criptografia: Implementação de hash de senhas utilizando bcrypt.
+
+Tokens: Autenticação baseada em JWT para proteção de rotas privadas.
+
+Funcionalidades da API
+CRUD de Transações: Endpoints para criar, ler, atualizar e deletar transações financeiras, com isolamento total entre usuários.
+
+Comunicação: Integração completa entre o Frontend (Vanilla JS) e o Backend (Node.js/Express) via requisições HTTP.
