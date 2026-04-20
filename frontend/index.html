@@ -3,177 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Financeira</title>
+  <title>FinCalc - Calculadora e Gestao</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="auth.css">
 </head>
 <body>
-
-  <!-- ─── Tela de autenticação ─────────────────────────────── -->
   <div id="tela-auth">
     <div class="auth-card">
-
       <div class="auth-logo">
-        <span class="auth-logo__icon">₿</span>
+        <span class="auth-logo__icon">$</span>
         <span class="auth-logo__text">FinCalc</span>
       </div>
 
-      <!-- Abas login / registro -->
       <div class="auth-tabs">
         <button class="auth-tab auth-tab--active" data-tab="login">Entrar</button>
         <button class="auth-tab" data-tab="registro">Criar conta</button>
       </div>
 
-      <!-- Formulário de login -->
       <div class="auth-form" id="form-login">
         <div class="auth-field">
           <label>E-mail</label>
           <input id="login-email" type="email" placeholder="seu@email.com" autocomplete="email">
         </div>
+
         <div class="auth-field">
           <label>Senha</label>
-          <input id="login-senha" type="password" placeholder="••••••" autocomplete="current-password">
+          <input id="login-senha" type="password" placeholder="******" autocomplete="current-password">
         </div>
+
         <div class="auth-erro" id="login-erro"></div>
         <button class="auth-btn" id="btn-login">Entrar</button>
       </div>
 
-      <!-- Formulário de registro -->
       <div class="auth-form" id="form-registro" style="display:none">
         <div class="auth-field">
           <label>Nome</label>
           <input id="reg-nome" type="text" placeholder="Seu nome" autocomplete="name">
         </div>
+
         <div class="auth-field">
           <label>E-mail</label>
           <input id="reg-email" type="email" placeholder="seu@email.com" autocomplete="email">
         </div>
+
         <div class="auth-field">
-          <label>Senha <span class="auth-dica">(mínimo 6 caracteres)</span></label>
-          <input id="reg-senha" type="password" placeholder="••••••" autocomplete="new-password">
+          <label>Senha <span class="auth-dica">(minimo 10 caracteres)</span></label>
+          <input id="reg-senha" type="password" placeholder="******" autocomplete="new-password">
         </div>
+
         <div class="auth-erro" id="reg-erro"></div>
         <button class="auth-btn" id="btn-registro">Criar conta</button>
       </div>
-
     </div>
   </div>
 
-  <!-- ─── Tela da calculadora ───────────────────────────────── -->
   <div id="tela-app" style="display:none">
+    <main class="app-layout">
+      <section class="panel panel--calculator">
+        <div class="container">
+          <div class="calculator">
+            <div class="calculator__topbar">
+              <button class="key--history">Historico</button>
+              <div class="topbar-right">
+                <span class="topbar-usuario" id="topbar-usuario"></span>
+                <button class="topbar-logout" id="btn-logout" title="Sair">Sair</button>
+                <button id="theme-toggle">Tema</button>
+              </div>
+            </div>
 
-    <div class="container">
-      <div class="calculator">
+            <div class="calculator__history" style="display: none"></div>
+            <div class="calculator__display">0</div>
 
-        <!-- Barra de topo: histórico + usuário + tema -->
-        <div class="calculator__topbar">
-          <button class="key--history">Histórico</button>
-          <div class="topbar-right">
-            <span class="topbar-usuario" id="topbar-usuario"></span>
-            <button class="topbar-logout" id="btn-logout" title="Sair">⏻</button>
-            <button id="theme-toggle">☾</button>
-          </div>
-        </div>
-        <div class="calculator__history" style="display: none"></div>
-
-        <!-- Display -->
-        <div class="calculator__display">0</div>
-
-        <!-- Abas -->
-        <div class="calculator__tabs">
-          <button class="tab tab--active" data-action="tab-basico">Básico</button>
-          <button class="tab" data-action="tab-financeiro">Financeiro</button>
-        </div>
-
-        <!-- Painel básico -->
-        <div class="calculator__keys" id="painel-basico">
-          <button class="key--operator" data-action="add">+</button>
-          <button class="key--operator" data-action="subtract">-</button>
-          <button class="key--operator" data-action="multiply">&times;</button>
-          <button class="key--operator" data-action="divide">÷</button>
-          <button>7</button><button>8</button><button>9</button>
-          <button>4</button><button>5</button><button>6</button>
-          <button>1</button><button>2</button><button>3</button>
-          <button>0</button>
-          <button data-action="decimal">.</button>
-          <button data-action="clear">AC</button>
-          <button class="key--paren" data-action="paren-open">(</button>
-          <button class="key--paren" data-action="paren-close">)</button>
-          <button class="key--paren" data-action="percent">%</button>
-          <button class="key--equal" data-action="calculate">=</button>
-        </div>
-
-        <!-- Painel financeiro -->
-        <div class="calculator__financeiro" id="painel-financeiro" style="display: none">
-          <div class="grupo-financeiro">
-            <span class="grupo-financeiro__titulo">Juros Compostos</span>
-            <div class="grupo-financeiro__botoes">
-              <button data-action="set-capital">Capital</button>
-              <button data-action="set-taxa">Taxa %</button>
-              <button data-action="set-periodos">Períodos</button>
+            <div class="calculator__keys" id="painel-basico">
+              <button class="key--operator" data-action="add">+</button>
+              <button class="key--operator" data-action="subtract">-</button>
+              <button class="key--operator" data-action="multiply">&times;</button>
+              <button class="key--operator" data-action="divide">&divide;</button>
+              <button>7</button><button>8</button><button>9</button>
+              <button>4</button><button>5</button><button>6</button>
+              <button>1</button><button>2</button><button>3</button>
+              <button>0</button>
+              <button data-action="decimal">.</button>
+              <button data-action="clear">AC</button>
+              <button class="key--paren" data-action="paren-open">(</button>
+              <button class="key--paren" data-action="paren-close">)</button>
+              <button class="key--paren" data-action="percent">%</button>
+              <button class="key--equal" data-action="calculate">=</button>
             </div>
           </div>
-          <div class="grupo-financeiro">
-            <span class="grupo-financeiro__titulo">Parcelas (PMT)</span>
-            <div class="grupo-financeiro__botoes">
-              <button data-action="set-pmt-pv">Empréstimo</button>
-              <button data-action="set-pmt-taxa">Taxa PMT</button>
-              <button data-action="set-pmt-periodos">Parcelas</button>
-            </div>
-          </div>
-          <div class="grupo-financeiro">
-            <span class="grupo-financeiro__titulo">Valor Futuro (FV)</span>
-            <div class="grupo-financeiro__botoes">
-              <button data-action="set-fv-aporte">Aporte</button>
-              <button data-action="set-fv-taxa">Taxa FV</button>
-              <button data-action="set-fv-periodos">Períodos FV</button>
-            </div>
-          </div>
-          <div class="grupo-financeiro">
-            <span class="grupo-financeiro__titulo">Taxa Equivalente</span>
-            <div class="grupo-financeiro__botoes">
-              <button data-action="set-taxa-origem">Taxa %</button>
-              <button data-action="set-periodo-origem">De (períodos)</button>
-              <button data-action="set-periodo-dest">Para (períodos)</button>
-            </div>
-          </div>
-          <div class="grupo-financeiro">
-            <span class="grupo-financeiro__titulo">Amortização</span>
-            <div class="amort-sistema">
-              <button class="btn-amort-sistema selected" data-sistema="price">Price</button>
-              <button class="btn-amort-sistema" data-sistema="sac">SAC</button>
-            </div>
-            <div class="grupo-financeiro__botoes">
-              <button data-action="set-amort-pv">Empréstimo</button>
-              <button data-action="set-amort-taxa">Taxa %</button>
-              <button data-action="set-amort-n">Parcelas</button>
-            </div>
-          </div>
-          <button class="key--clear-financeiro" data-action="clear">AC</button>
+        </div>
+      </section>
+
+      <section class="panel panel--bills">
+        <div class="bills-header">
+          <h2 class="bills-title">Gerenciador de Contas</h2>
         </div>
 
-      </div>
-    </div>
+        <form class="bills-form" id="billsForm">
+          <input type="text" id="billName" class="bills-input" placeholder="Ex: Aluguel" maxlength="100" required>
+          <div class="bills-form-row">
+            <input type="number" id="billAmount" class="bills-input" placeholder="R$ 0,00" step="0.01" min="0.01" inputmode="decimal" required>
+            <input type="date" id="billDueDate" class="bills-input" required>
+          </div>
+          <button type="submit" class="bills-btn bills-btn--add">+ Adicionar Conta</button>
+        </form>
 
-    <!-- Modal de amortização -->
-    <div id="amort-modal">
-      <div class="amort-modal__box">
-        <div class="amort-modal__header">
-          <span id="amort-titulo">Tabela</span>
-          <button id="amort-fechar">✕</button>
-        </div>
-        <div class="amort-modal__body">
-          <table>
-            <thead>
-              <tr><th>#</th><th>Parcela</th><th>Amortiz.</th><th>Juros</th><th>Saldo</th></tr>
-            </thead>
-            <tbody id="amort-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+        <div class="bills-feedback" id="billsFeedback" role="status" aria-live="polite"></div>
 
-  </div><!-- /tela-app -->
+        <ul class="bills-list" id="billsList"></ul>
+
+        <div class="bills-summary" id="billsSummary">
+          <div class="summary-item">
+            <span class="summary-label">Pendente:</span>
+            <span id="summaryPending" class="summary-value pending">R$ 0,00</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Pago:</span>
+            <span id="summaryPaid" class="summary-value paid">R$ 0,00</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script src="api.js"></script>
   <script src="script.js"></script>

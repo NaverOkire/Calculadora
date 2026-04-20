@@ -86,6 +86,28 @@ async function getTransactions(filters = {}) {
   return apiFetch(`/transactions${query}`)
 }
 
+async function getBills() {
+  return apiFetch('/bills')
+}
+
+async function createBill(bill) {
+  return apiFetch('/bills', {
+    method: 'POST',
+    body: JSON.stringify(bill),
+  })
+}
+
+async function updateBill(id, changes) {
+  return apiFetch(`/bills/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(changes),
+  })
+}
+
+async function deleteBill(id) {
+  return apiFetch(`/bills/${id}`, { method: 'DELETE' })
+}
+
 async function createTransaction(tx) {
   return apiFetch('/transactions', {
     method: 'POST',
@@ -111,6 +133,10 @@ window.FinanceAPI = {
   hasSession,
   getSession,
   getUser,
+  getBills,
+  createBill,
+  updateBill,
+  deleteBill,
   getTransactions,
   createTransaction,
   updateTransaction,

@@ -34,7 +34,7 @@
 
 .auth-logo__icon {
   font-size: 1.6rem;
-  color: #ff7033;
+  color: #7a98ae;
   line-height: 1;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .auth-tab--active {
-  background: #ff7033;
+  background: #6e8090;
   color: #fff;
 }
 
@@ -113,7 +113,7 @@
 }
 
 .auth-field input:focus {
-  border-color: #ff7033;
+  border-color: #6e8090;
   outline: none;
 }
 
@@ -131,7 +131,7 @@
 
 /* Botão */
 .auth-btn {
-  background: linear-gradient(to bottom, #fe886a, #ff7033);
+  background: linear-gradient(to bottom, #7a98ae, #6e8090);
   border: none;
   border-radius: 8px;
   color: #fff;

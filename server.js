@@ -11,6 +11,7 @@ const cors = require('cors')
 const path = require('path')
 
 const authRoutes = require('./routes/auth')
+const billsRoutes = require('./routes/bills')
 const transactionsRoutes = require('./routes/transactions')
 
 const app = express()
@@ -56,7 +57,7 @@ app.use(cors({
     return callback(new Error('Origem não permitida por CORS.'))
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }))
 
@@ -69,6 +70,7 @@ app.use(express.static(path.join(__dirname, 'frontend')))
 
 // ─── Rotas da API ─────────────────────────────────────────────
 app.use('/api', authRoutes)                       // POST /api/register, /api/login
+app.use('/api/bills', billsRoutes)               // CRUD /api/bills
 app.use('/api/transactions', transactionsRoutes)  // CRUD /api/transactions
 
 // ─── Health check ─────────────────────────────────────────────

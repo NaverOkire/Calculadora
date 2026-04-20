@@ -16,73 +16,99 @@ button:hover, button:active, button:focus { outline: none; }
 
 :root,
 [data-theme="light"] {
-  --cor-body-bg:          #c9d6df;
-  --cor-body-bg2:         #acb6e5;
-  --cor-display-bg:       #1a1a2e;
-  --cor-display-texto:    #e0e0ff;
-  --cor-display-copied:   #4caf50;
-  --cor-grade:            #cccccc;
-  --cor-botao:            #ffffff;
-  --cor-botao-hover:      #f5f5f5;
-  --cor-botao-operador:   #eeeeee;
-  --cor-historico-bg:     #2a2a3e;
-  --cor-historico-texto:  #9090aa;
-  --cor-aba-bg:           #222236;
-  --cor-aba-texto:        #8888aa;
-  --cor-aba-ativa-texto:  #ffffff;
-  --cor-aba-ativa-borda:  #ff7033;
-  --cor-grupo-bg:         #f5f5f5;
-  --cor-grupo-titulo:     #888888;
-  --cor-grupo-borda:      #e0e0e0;
-  --cor-botao-fin:        #ffffff;
-  --cor-botao-fin-hover:  #f0f0f0;
-  --cor-botao-fin-sel:    #ff7033;
-  --cor-botao-fin-sel-txt:#ffffff;
-  --cor-tema-btn:         #2a2a3e;
-  --cor-tema-btn-txt:     #aaaacc;
-  --cor-modal-overlay:    rgba(0,0,0,0.55);
-  --cor-modal-bg:         #ffffff;
-  --cor-modal-header:     #1a1a2e;
-  --cor-modal-header-txt: #e0e0ff;
-  --cor-tabela-borda:     #e0e0e0;
-  --cor-tabela-par:       #f9f9f9;
+  --cor-body-bg:          #d4d8dc;
+  --cor-body-bg2:         #bec4cc;
+  --cor-display-bg:       #23272e;
+  --cor-display-texto:    #dde0e4;
+  --cor-display-copied:   #6a9e72;
+  --cor-grade:            #c8cacc;
+  --cor-botao:            #f4f5f6;
+  --cor-botao-hover:      #eaebec;
+  --cor-botao-operador:   #e4e6e8;
+  --cor-historico-bg:     #2e3238;
+  --cor-historico-texto:  #8a909a;
+  --cor-tema-btn:         #2e3238;
+  --cor-tema-btn-txt:     #9aa0aa;
+
+  /* ── Bills: variáveis de tema (light) ── */
+  --bills-title-color:      #3a3d42;
+  --bills-input-bg:         #f8f9fa;
+  --bills-input-border:     #d8dce0;
+  --bills-input-focus:      #8a9bb0;
+  --bills-input-color:      #3a3d42;
+  --bills-btn-bg:           #6e8090;
+  --bills-btn-hover:        #5c6e7d;
+  --bills-feedback-color:   #6a6e74;
+  --bills-feedback-error:   #a05a54;
+  --bills-feedback-success: #507060;
+  --bills-item-bg:          #f8f9fa;
+  --bills-item-border:      #dde0e4;
+  --bills-item-paid-bg:     #f2f6f4;
+  --bills-item-paid-border: #c4d4cc;
+  --bills-item-over-bg:     #f8f4f2;
+  --bills-item-over-border: #d4beb4;
+  --bills-name-color:       #3a3d42;
+  --bills-name-paid-color:  #8aa099;
+  --bills-meta-color:       #8a9099;
+  --bills-overdue-color:    #a07060;
+  --bills-amount-color:     #3a3d42;
+  --bills-amount-paid:      #6e8090;
+  --bills-btn-hover-bg:     #e8eaec;
+  --bills-btn-paid-color:   #6e8090;
+  --bills-btn-del-color:    #a07060;
+  --bills-summary-bg:       #eef0f2;
+  --bills-summary-color:    #5a5e64;
+  --bills-summary-paid:     #6e8090;
 }
 
 [data-theme="dark"] {
-  --cor-body-bg:          #0f0f1a;
-  --cor-body-bg2:         #1a1a2e;
-  --cor-display-bg:       #0a0a14;
-  --cor-display-texto:    #d0d0ff;
-  --cor-grade:            #333344;
-  --cor-botao:            #1e1e30;
-  --cor-botao-hover:      #28283c;
-  --cor-botao-operador:   #181828;
-  --cor-historico-bg:     #12121e;
-  --cor-historico-texto:  #6666aa;
-  --cor-aba-bg:           #0d0d1a;
-  --cor-aba-texto:        #5555aa;
-  --cor-aba-ativa-texto:  #e0e0ff;
-  --cor-aba-ativa-borda:  #ff7033;
-  --cor-grupo-bg:         #16162a;
-  --cor-grupo-titulo:     #6666aa;
-  --cor-grupo-borda:      #2a2a44;
-  --cor-botao-fin:        #1e1e30;
-  --cor-botao-fin-hover:  #26263a;
-  --cor-botao-fin-sel:    #cc5522;
-  --cor-botao-fin-sel-txt:#ffffff;
-  --cor-tema-btn:         #1e1e30;
-  --cor-tema-btn-txt:     #8888cc;
-  --cor-modal-overlay:    rgba(0,0,0,0.75);
-  --cor-modal-bg:         #1a1a2e;
-  --cor-modal-header:     #0a0a14;
-  --cor-modal-header-txt: #d0d0ff;
-  --cor-tabela-borda:     #2a2a44;
-  --cor-tabela-par:       #16162a;
+  --cor-body-bg:          #16181c;
+  --cor-body-bg2:         #1e2228;
+  --cor-display-bg:       #0e1014;
+  --cor-display-texto:    #c8ccd2;
+  --cor-grade:            #2e3238;
+  --cor-botao:            #1e2228;
+  --cor-botao-hover:      #262c34;
+  --cor-botao-operador:   #191e24;
+  --cor-historico-bg:     #141820;
+  --cor-historico-texto:  #606878;
+  --cor-tema-btn:         #1e2228;
+  --cor-tema-btn-txt:     #808898;
+
+  /* ── Bills: variáveis de tema (dark) ── */
+  --bills-title-color:      #c0c4ca;
+  --bills-input-bg:         #181c22;
+  --bills-input-border:     #262c34;
+  --bills-input-focus:      #6e8090;
+  --bills-input-color:      #c0c4ca;
+  --bills-btn-bg:           #3a5060;
+  --bills-btn-hover:        #48606e;
+  --bills-feedback-color:   #80889a;
+  --bills-feedback-error:   #c07070;
+  --bills-feedback-success: #60907a;
+  --bills-item-bg:          #181c22;
+  --bills-item-border:      #262c34;
+  --bills-item-paid-bg:     #141c1a;
+  --bills-item-paid-border: #1e3028;
+  --bills-item-over-bg:     #1c1614;
+  --bills-item-over-border: #3a2820;
+  --bills-name-color:       #c0c4ca;
+  --bills-name-paid-color:  #486058;
+  --bills-meta-color:       #606878;
+  --bills-overdue-color:    #c08070;
+  --bills-amount-color:     #c0c4ca;
+  --bills-amount-paid:      #60907a;
+  --bills-btn-hover-bg:     #222830;
+  --bills-btn-paid-color:   #60907a;
+  --bills-btn-del-color:    #c08070;
+  --bills-summary-bg:       #141820;
+  --bills-summary-color:    #80889a;
+  --bills-summary-paid:     #60907a;
 }
 
 /* ─── Base ──────────────────────────────────────────────────────────────────── */
 
-html { font-size: 175%; font-weight: 300; line-height: 1.3; }
+html { font-size: 175%; font-weight: 300; line-height: 1.3; font-family: 'Poppins', sans-serif; }
 
 body {
   align-items: center;
@@ -91,6 +117,10 @@ body {
   min-height: 100vh;
   justify-content: center;
   transition: background-image 0.3s;
+}
+
+#tela-app {
+  width: 100%;
 }
 
 /* ─── Container ─────────────────────────────────────────────────────────────── */
@@ -104,13 +134,14 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 1.5em;
-  max-width: 15em;
+  max-width: 100%;
+  width: 15em;
   overflow: hidden;
 }
 
 /* ─── Barra de topo ─────────────────────────────────────────────────────────── */
 .calculator__topbar {
-  background-color: var(--cor-aba-bg);
+  background-color: var(--cor-historico-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -178,25 +209,6 @@ body {
 }
 .calculator__display--prompt { font-size: 1em; padding-top: 0.65em; }
 
-/* ─── Abas ──────────────────────────────────────────────────────────────────── */
-.calculator__tabs {
-  background-color: var(--cor-aba-bg);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.tab {
-  color: var(--cor-aba-texto);
-  cursor: pointer;
-  font-size: 0.55em;
-  letter-spacing: 0.05em;
-  padding: 0.5em 0;
-  text-align: center;
-  text-transform: uppercase;
-  transition: color 0.2s;
-  border-bottom: 2px solid transparent;
-}
-.tab:hover { color: var(--cor-aba-ativa-texto); }
-.tab--active { border-bottom-color: var(--cor-aba-ativa-borda); color: var(--cor-aba-ativa-texto); }
 
 /* ─── Painel básico ─────────────────────────────────────────────────────────── */
 .calculator__keys {
@@ -223,147 +235,324 @@ body {
 .key--operator { background-color: var(--cor-botao-operador); }
 .key--paren    { background-color: var(--cor-botao-operador); font-size: 0.85em; }
 .key--equal {
-  background-image: linear-gradient(to bottom, #fe886a, #ff7033);
+  background-image: linear-gradient(to bottom, #7a98ae, #6e8090);
   grid-column: -2;
   grid-row: 2 / span 4;
   color: #fff;
 }
 
-/* ─── Painel financeiro ─────────────────────────────────────────────────────── */
-.calculator__financeiro {
-  background-color: var(--cor-grupo-bg);
-  padding: 0.4em;
+
+/* ===== LAYOUT PRINCIPAL ===== */
+.app-layout {
   display: flex;
-  flex-direction: column;
-  gap: 0.4em;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: min(100%, 1200px);
 }
-.grupo-financeiro {
-  background-color: var(--cor-botao-fin);
-  border: 1px solid var(--cor-grupo-borda);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.grupo-financeiro__titulo {
-  color: var(--cor-grupo-titulo);
-  display: block;
-  font-size: 0.45em;
-  letter-spacing: 0.06em;
-  padding: 0.4em 0.75em 0.2em;
-  text-transform: uppercase;
-}
-.grupo-financeiro__botoes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background-color: var(--cor-grupo-borda);
-}
-.grupo-financeiro__botoes button {
-  background-color: var(--cor-botao-fin);
-  color: var(--cor-display-bg);
-  cursor: pointer;
-  font-size: 0.5em;
-  padding: 0.6em 0.25em;
-  text-align: center;
-  transition: background-color 0.15s;
-}
-.grupo-financeiro__botoes button:hover { background-color: var(--cor-botao-fin-hover); }
-.grupo-financeiro__botoes button:active { background-color: var(--cor-grupo-borda); }
 
-/* Seletor Price/SAC */
-.amort-sistema {
+.panel {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+.panel--calculator {
+  flex: 1 1 50%;
   display: flex;
-  gap: 1px;
-  background-color: var(--cor-grupo-borda);
-  margin: 0;
-}
-.btn-amort-sistema {
-  flex: 1;
-  background-color: var(--cor-botao-fin);
-  color: var(--cor-grupo-titulo);
-  cursor: pointer;
-  font-size: 0.45em;
-  padding: 0.5em;
-  text-align: center;
-  transition: background-color 0.15s, color 0.15s;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.btn-amort-sistema.selected {
-  background-color: var(--cor-botao-fin-sel);
-  color: var(--cor-botao-fin-sel-txt);
-}
-
-.key--clear-financeiro {
-  background-color: var(--cor-botao-operador);
-  border-radius: 6px;
-  color: var(--cor-display-bg);
-  cursor: pointer;
-  font-size: 0.55em;
-  margin-top: 0.2em;
-  padding: 0.5em;
-  text-align: center;
-  width: 100%;
-  transition: background-color 0.15s;
-}
-.key--clear-financeiro:hover { background-color: var(--cor-grupo-borda); }
-
-/* ─── Modal de amortização ──────────────────────────────────────────────────── */
-#amort-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: var(--cor-modal-overlay);
-  z-index: 100;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 1rem;
 }
-.amort-modal__box {
-  background: var(--cor-modal-bg);
-  border-radius: 10px;
-  overflow: hidden;
-  max-width: 480px;
-  width: 100%;
-  max-height: 85vh;
+
+.panel--bills {
+  flex: 1 1 50%;
+}
+
+/* ===== PAINEL DA LISTA DE CONTAS ===== */
+.bills-header {
+  margin-bottom: 1.25rem;
+  /* Alinha visualmente com o topo da calculadora */
+  padding-top: 1.5em;
+}
+
+.bills-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--bills-title-color);
+  margin: 0;
+  letter-spacing: -0.02em;
+  transition: color 0.3s;
+}
+
+/* ===== FORMULÁRIO ===== */
+.bills-form {
   display: flex;
   flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
 }
-.amort-modal__header {
-  background: var(--cor-modal-header);
-  color: var(--cor-modal-header-txt);
+
+.bills-form-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.bills-input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid var(--bills-input-border);
+  border-radius: 10px;
+  font-size: 0.75rem;
+  background: var(--bills-input-bg);
+  color: var(--bills-input-color);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
+  box-sizing: border-box;
+}
+
+.bills-input:focus {
+  border-color: var(--bills-input-focus);
+  box-shadow: 0 0 0 3px rgba(107, 143, 113, 0.2);
+}
+
+/* Corrige cor do placeholder em ambos os temas */
+.bills-input::placeholder {
+  color: var(--bills-meta-color);
+  opacity: 1;
+}
+
+/* Corrige cor do input de data no Safari/Chrome (ícone e texto interno) */
+.bills-input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: opacity(0.5);
+  cursor: pointer;
+}
+
+.bills-btn--add {
+  padding: 0.6rem 1rem;
+  background: var(--bills-btn-bg);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.bills-btn--add:hover:not(:disabled)  { background: var(--bills-btn-hover); }
+.bills-btn--add:active:not(:disabled) { transform: scale(0.98); }
+.bills-btn--add:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===== FEEDBACK ===== */
+.bills-feedback {
+  min-height: 1.1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.65rem;
+  color: var(--bills-feedback-color);
+  transition: color 0.2s;
+}
+
+.bills-feedback.is-error   { color: var(--bills-feedback-error); }
+.bills-feedback.is-success { color: var(--bills-feedback-success); }
+
+/* ===== LISTA ===== */
+.bills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* Altura máxima com scroll para não estourar a tela em listas grandes */
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 2px; /* evita cortar borda durante scroll */
+}
+
+/* Scrollbar discreta */
+.bills-list::-webkit-scrollbar { width: 4px; }
+.bills-list::-webkit-scrollbar-track { background: transparent; }
+.bills-list::-webkit-scrollbar-thumb { background: var(--bills-item-border); border-radius: 2px; }
+
+/* ===== ITEM DA LISTA ===== */
+.bill-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 1rem;
-  font-size: 0.7rem;
+  gap: 0.6rem;
+  padding: 0.65rem 0.8rem;
+  background: var(--bills-item-bg);
+  border: 1.5px solid var(--bills-item-border);
+  border-radius: 12px;
+  transition: opacity 0.2s, border-color 0.2s, background 0.3s;
 }
-.amort-modal__header button {
-  color: var(--cor-modal-header-txt);
+
+.bill-item.is-paid {
+  opacity: 0.6;
+  border-color: var(--bills-item-paid-border);
+  background: var(--bills-item-paid-bg);
+}
+
+.bill-item.is-paid .bill-name {
+  text-decoration: line-through;
+  color: var(--bills-name-paid-color);
+}
+
+.bill-item.is-overdue {
+  border-color: var(--bills-item-over-border);
+  background: var(--bills-item-over-bg);
+}
+
+.bill-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.bill-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--bills-name-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s;
+}
+
+.bill-meta {
+  font-size: 0.62rem;
+  color: var(--bills-meta-color);
+  margin-top: 2px;
+}
+
+.bill-overdue {
+  color: var(--bills-overdue-color);
+}
+
+.bill-amount {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--bills-amount-color);
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.bill-item.is-paid .bill-amount {
+  color: var(--bills-amount-paid);
+}
+
+/* ===== BOTÕES DE AÇÃO ===== */
+.bill-btn {
+  background: none;
+  border: 1px solid transparent;
   cursor: pointer;
-  font-size: 1rem;
-  opacity: 0.7;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.6rem;
+  font-weight: 500;
+  line-height: 1.4;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
-.amort-modal__header button:hover { opacity: 1; }
-.amort-modal__body { overflow-y: auto; flex: 1; }
-.amort-modal__body table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.55rem;
-  color: var(--cor-display-bg);
+
+.bill-btn:hover { background: var(--bills-btn-hover-bg); }
+
+.bill-btn--paid {
+  color: var(--bills-btn-paid-color);
+  border-color: var(--bills-btn-paid-color);
 }
-.amort-modal__body th {
-  background: var(--cor-modal-header);
-  color: var(--cor-modal-header-txt);
-  padding: 0.4rem 0.5rem;
-  text-align: right;
-  font-weight: 400;
+
+.bill-btn--delete {
+  color: var(--bills-btn-del-color);
+  border-color: var(--bills-btn-del-color);
 }
-.amort-modal__body th:first-child { text-align: center; }
-.amort-modal__body td {
-  padding: 0.35rem 0.5rem;
-  text-align: right;
-  border-bottom: 1px solid var(--cor-tabela-borda);
-  color: var(--cor-grupo-titulo);
+
+/* ===== RESUMO ===== */
+.bills-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.65rem 0.9rem;
+  background: var(--bills-summary-bg);
+  border-radius: 10px;
+  transition: background 0.3s;
 }
-.amort-modal__body td:first-child { text-align: center; color: var(--cor-display-bg); font-weight: 400; }
-.amort-modal__body tr:nth-child(even) td { background: var(--cor-tabela-par); }
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.summary-label {
+  font-size: 0.6rem;
+  color: var(--bills-summary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary-value {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--bills-summary-color);
+}
+
+.summary-value.paid {
+  color: var(--bills-summary-paid);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1024px) {
+  .app-layout {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .panel {
+    flex: none;
+    width: 100%;
+  }
+
+  .panel--calculator .container {
+    max-width: 24rem;
+    margin: 0 auto;
+  }
+
+  .bills-header {
+    padding-top: 0;
+  }
+
+  .bills-list {
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .panel {
+    flex: none;
+    width: 100%;
+  }
+
+  .panel--calculator .container {
+    max-width: 100%;
+  }
+
+  .bills-form-row {
+    flex-direction: column;
+  }
+}
