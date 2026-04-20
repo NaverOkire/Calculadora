@@ -1,6 +1,3 @@
-Entendido. Removi as referências ao Modo Financeiro (Amortização, Price, SAC) e foquei na nova estrutura que prioriza o Gerenciador de Contas (Bills To-Do) junto à Calculadora.
-
-Aqui está o README atualizado:
 
 💻 Calculadora & Gerenciador Financeiro
 Aplicação web full-stack desenvolvida com foco em evolução prática de lógica de programação, construção de sistemas completos e integração entre frontend, backend e banco de dados.
